@@ -15,7 +15,7 @@ const typeDefs = `
 const resolvers = {
     Query: {
         title() {
-            return 'Vibhuti'
+            return 'Maple Plant'
         },
         price() {
             return 2.99
