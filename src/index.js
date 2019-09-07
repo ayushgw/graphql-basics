@@ -22,17 +22,20 @@ const posts = [{
     id: 'post1',
     title: 'Post One',
     body: 'This is post one body',
-    published: true
+    published: true,
+    author: 'user1'
 }, {
     id: 'post2',
     title: 'Post Two',
     body: 'This is post two body',
-    published: false
+    published: false,
+    author: 'user1'
 }, {
     id: 'post3',
     title: 'Post Three',
     body: 'This is post three body',
-    published: true
+    published: true,
+    author: 'user2'
 }]
 
 // Type definitions (schema)
@@ -56,6 +59,7 @@ const typeDefs = `
         title: String!
         body: String!
         published: Boolean!
+        author: User!
     }
 `
 
@@ -93,6 +97,11 @@ const resolvers = {
                 body: 'Could surpass the speed of light!',
                 published: false
             }
+        }
+    },
+    Post: {
+        author(parent, args, ctx, info) {
+            return users.find(user => user.id === parent.author)
         }
     }
 }
