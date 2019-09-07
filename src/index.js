@@ -1,6 +1,6 @@
 import { GraphQLServer } from 'graphql-yoga'
 
-// Demo user data
+// Dummy users data
 const users = [{
     id: 'user1',
     name: 'Ayush Gosi',
@@ -17,10 +17,29 @@ const users = [{
     email: 'barry@example.com'
 }]
 
+// Dummy Posts Data 
+const posts = [{
+    id: 'post1',
+    title: 'Post One',
+    body: 'This is post one body',
+    published: true
+}, {
+    id: 'post2',
+    title: 'Post Two',
+    body: 'This is post two body',
+    published: false
+}, {
+    id: 'post3',
+    title: 'Post Three',
+    body: 'This is post three body',
+    published: true
+}]
+
 // Type definitions (schema)
 const typeDefs = `
     type Query {
         users(query: String): [User!]!
+        posts(query: String): [Post!]!
         me: User!
         post: Post!
     }
@@ -44,11 +63,21 @@ const typeDefs = `
 const resolvers = {
     Query: {
         users(parent, args, ctx, info) {
-            if(!args.query) {
+            if (!args.query) {
                 return users
             }
-            
+
             return users.filter(user => user.name.toLowerCase().includes(args.query.toLowerCase()))
+        },
+        posts(parent, args, ctx, info) {
+            if (!args.query) {
+                return posts
+            }
+
+            return posts.filter(post => {
+                return post.title.toLowerCase().includes(args.query.toLowerCase()) ||
+                    post.body.toLowerCase().includes(args.query.toLowerCase())
+            })
         },
         me() {
             return {
