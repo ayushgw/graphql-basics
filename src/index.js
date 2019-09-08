@@ -1,48 +1,13 @@
 import { GraphQLServer } from 'graphql-yoga'
+import { users, posts, comments } from './data'
 
-// Dummy users data
-const users = [{
-    id: 'user1',
-    name: 'Ayush Gosi',
-    age: 27,
-    email: 'ayush@example.com'
-}, {
-    id: 'user2',
-    name: 'Bruce Wayne',
-    email: 'bruce@example.com'
-}, {
-    id: 'user3',
-    name: 'Barry Allen',
-    age: 35,
-    email: 'barry@example.com'
-}]
-
-// Dummy Posts Data 
-const posts = [{
-    id: 'post1',
-    title: 'Post One',
-    body: 'This is post one body',
-    published: true,
-    author: 'user1'
-}, {
-    id: 'post2',
-    title: 'Post Two',
-    body: 'This is post two body',
-    published: false,
-    author: 'user1'
-}, {
-    id: 'post3',
-    title: 'Post Three',
-    body: 'This is post three body',
-    published: true,
-    author: 'user2'
-}]
 
 // Type definitions (schema)
 const typeDefs = `
     type Query {
         users(query: String): [User!]!
         posts(query: String): [Post!]!
+        comments: [Comment!]!
         me: User!
         post: Post!
     }
@@ -53,6 +18,7 @@ const typeDefs = `
         email: String!
         age: Int
         posts: [Post!]!
+        comments: [Comment!]!
     }
 
     type Post {
@@ -60,6 +26,12 @@ const typeDefs = `
         title: String!
         body: String!
         published: Boolean!
+        author: User!
+    }
+
+    type Comment {
+        id: ID
+        text: String!
         author: User!
     }
 `
@@ -83,6 +55,9 @@ const resolvers = {
                 return post.title.toLowerCase().includes(args.query.toLowerCase()) ||
                     post.body.toLowerCase().includes(args.query.toLowerCase())
             })
+        },
+        comments(parent, args, ctx, info) {
+            return comments
         },
         me() {
             return {
@@ -110,6 +85,14 @@ const resolvers = {
             return posts.filter(post => {
                 return post.author === parent.id
             })
+        },
+        comments(parent, args, ctx, info) {
+            return comments.filter(comment => comment.author === parent.id)
+        }
+    },
+    Comment: {
+        author(parent, args, ctx, info) {
+            return users.find(user => user.id === parent.author)
         }
     }
 }
