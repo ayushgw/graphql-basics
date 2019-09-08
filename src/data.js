@@ -40,19 +40,23 @@ const posts = [{
 const comments = [{
     id: 'com1',
     text: 'Dummy Comment One',
-    author: 'user3'
+    author: 'user3',
+    post: 'post1'
 }, {
     id: 'com2',
     text: 'Dummy Comment Two',
-    author: 'user2'
+    author: 'user2',
+    post: 'post1'
 }, {
     id: 'com3',
     text: 'Dummy Comment Three',
-    author: 'user1'
+    author: 'user1',
+    post: 'post3'
 }, {
     id: 'com4',
     text: 'Dummy Comment Four',
-    author: 'user2'
+    author: 'user2',
+    post: 'post2'
 }]
 
 export { users, posts, comments }
