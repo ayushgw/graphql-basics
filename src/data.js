@@ -1,5 +1,5 @@
 // Dummy users data
-const users = [{
+let users = [{
     id: 'user1',
     name: 'Ayush Gosi',
     age: 27,
@@ -16,7 +16,7 @@ const users = [{
 }]
 
 // Dummy Posts Data 
-const posts = [{
+let posts = [{
     id: 'post1',
     title: 'Post One',
     body: 'This is post one body',
@@ -37,7 +37,7 @@ const posts = [{
 }]
 
 // Dummy Comments Data
-const comments = [{
+let comments = [{
     id: 'com1',
     text: 'Dummy Comment One',
     author: 'user3',
