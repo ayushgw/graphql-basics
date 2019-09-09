@@ -1,5 +1,4 @@
 import { GraphQLServer } from 'graphql-yoga'
-// import { users, posts, comments } from './data'
 import uuidv4 from 'uuid/v4'
 
 // Dummy users data
