@@ -17,7 +17,7 @@ const Query = {
         })
     },
     comments(parent, args, { db }, info) {
-        return comments
+        return db.comments
     },
     me() {
         return {
